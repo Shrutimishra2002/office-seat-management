@@ -1,0 +1,68 @@
+/* App.css */
+
+/* General styling for the forms */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Styling for error messages */
+p {
+    color: red;
+    font-weight: bold;
+}
+
+/* Add this to your App.css or a specific CSS file */
+.expired-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    z-index: 9999;
+  }
+  
