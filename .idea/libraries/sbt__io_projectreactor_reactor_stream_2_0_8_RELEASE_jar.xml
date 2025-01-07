@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: io.projectreactor:reactor-stream:2.0.8.RELEASE:jar" external-system-id="SBT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/io.projectreactor/reactor-stream/jars/reactor-stream-2.0.8.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/io.projectreactor/reactor-stream/srcs/reactor-stream-2.0.8.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.graphql-java:graphql-java:20.2:jar" external-system-id="SBT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.graphql-java/graphql-java/jars/graphql-java-20.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.graphql-java/graphql-java/srcs/graphql-java-20.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

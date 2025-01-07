@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sbt: org.apache.beam:beam-vendor-guava-26_0-jre:0.1:jar" external-system-id="SBT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.beam/beam-vendor-guava-26_0-jre/jars/beam-vendor-guava-26_0-jre-0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
