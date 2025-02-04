@@ -1,0 +1,116 @@
+.admin-dashboard {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  .top-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+  }
+  
+  .username {
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+  }
+  
+  .logout-button {
+    padding: 5px 5px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    background-color: #ff4a4a;
+  }
+  
+  .main-content {
+    margin-top: 60px;
+  }
+  
+  .office-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    padding: 8px;
+    margin: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .create-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .create-button:hover {
+    background-color: #218838;
+  }
+  
+  .message {
+    text-align: center;
+    color: #d9534f;
+    font-size: 16px;
+  }
+  
+  .office-list {
+    margin-top: 20px;
+  }
+  
+  .office-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .office-name {
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    cursor: pointer;
+    color: #007bff;
+
+  }
+ 
+  
+  .office-name:hover {
+    text-decoration: underline;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  

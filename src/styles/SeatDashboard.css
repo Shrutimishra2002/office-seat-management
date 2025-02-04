@@ -1,0 +1,62 @@
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.seat {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+}
+
+.seat:hover {
+  background-color: #f0f0f0;
+}
+
+.seat.available {
+  background-color: #d4edda;
+}
+
+.seat.booked {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}
+
+.seat.reserved {
+  background-color: #ffc107;
+}
+
+.seat.unavailable {
+  background-color: #dc3545;
+  color: white;
+  cursor: not-allowed;
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 10;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.seat.booked .dropdown {
+  display: block;
+}
