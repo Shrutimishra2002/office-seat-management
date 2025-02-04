@@ -1,4 +1,4 @@
-name := """Backend"""
+name := """Office Seat Management"""
 organization := "com.example"
 version := "1.0-SNAPSHOT"
 

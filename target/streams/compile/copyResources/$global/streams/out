@@ -1,9 +1,7 @@
 [0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/routes,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/routes)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/application.conf,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/evolutions,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/evolutions)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/logback.xml,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/logback.xml)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/evolution.default,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/evolution.default)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/evolutions/default,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/evolutions/default)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/evolutions/default/1.sql,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/evolutions/default/1.sql)[0m
-[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Downloads/Template/conf/evolution.default/1.sql,/home/shruti_sm1540_sc418/Downloads/Template/target/scala-2.11/classes/evolution.default/1.sql)[0m
+[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/routes,/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/target/scala-2.11/classes/routes)[0m
+[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/application.conf,/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/target/scala-2.11/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/evolutions,/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/target/scala-2.11/classes/evolutions)[0m
+[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/logback.xml,/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/target/scala-2.11/classes/logback.xml)[0m
+[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/evolutions/default,/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/target/scala-2.11/classes/evolutions/default)[0m
+[0m[[0mdebug[0m] [0m	(/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/evolutions/default/1.sql,/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/target/scala-2.11/classes/evolutions/default/1.sql)[0m

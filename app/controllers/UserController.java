@@ -1,226 +1,163 @@
-//package controllers;
-//
-//import com.avaje.ebean.Ebean;
-//
-//import com.fasterxml.jackson.databind.JsonNode;
-//import com.google.inject.Inject;
-//import models.User;
-//import org.mindrot.jbcrypt.BCrypt;
-//import play.mvc.*;
-//
-//public class UserController extends Controller {
-//
-//    // Signup method: this should automatically accept the request body
-//    public Result signUp() {
-//        JsonNode json = request().body().asJson(); // Get JSON body
-//
-//        String firstName = json.get("firstName").asText();
-//        String lastName = json.get("lastName").asText();
-//        String email = json.get("email").asText();
-//        String password = json.get("password").asText();
-//        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-//
-//        // Check if the user already exists
-//        if (Ebean.find(User.class).where().eq("email", email).findRowCount() > 0) {
-//            return badRequest("User already exists");
-//        }
-//
-//        // Save user
-//        User user = new User();
-//        user.setFirstName(firstName);
-//        user.setLastName(lastName);
-//        user.setEmail(email);
-//        user.setPassword(hashedPassword);
-//        user.save();
-//
-//        return ok("Sign up successful");
-//    }
-//
-//    // Login method
-//    public Result login() {
-//        JsonNode json = request().body().asJson(); // Get JSON body
-//
-//        String email = json.get("email").asText();
-//        String password = json.get("password").asText();
-//
-//        User user = Ebean.find(User.class).where().eq("email", email).findUnique();
-//
-//        if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
-//            return unauthorized("Invalid email or password");
-//        }
-//
-//        return ok("Login successful");
-//    }
-//
-//    public Result testConnection() {
-//        return ok("Connection successful");
-//    }
-//}
 
 package controllers;
-
-import com.avaje.ebean.Ebean;
+import com.smartcoin.utils.JsonUtil;
+import models.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.inject.Inject;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
-import models.User;
 import org.mindrot.jbcrypt.BCrypt;
+import play.Configuration;
 import play.libs.Json;
 import play.mvc.*;
-
+import services.UserService;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class UserController extends Controller {
-
-    private static final String SECRET_KEY = "your_secret_key"; // Replace with a secure key
-    private static final long EXPIRATION_TIME = 86400000; // 24 hours in milliseconds
-
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    // Generate a JWT token
-    private String generateToken(String email) {
-        return JWT.create()
-                .withSubject(email)
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC256(SECRET_KEY));
+    private final UserService userService;
+
+    @Inject
+    public UserController(UserService userService, Configuration configuration){
+
+        this.userService = userService;
+        this.configuration = configuration;
     }
 
-    // Verify JWT token
-    private String verifyToken(String token) {
-        try {
-            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET_KEY)).build();
-            DecodedJWT decodedJWT = verifier.verify(token);
-            return decodedJWT.getSubject(); // Returns the email if verification is successful
-        } catch (JWTVerificationException e) {
-            return null; // Token is invalid or expired
-        }
-    }
 
-    // Signup method: this should automatically accept the request body
     public Result signUp() {
-        JsonNode json = request().body().asJson(); // Get JSON body
+        JsonNode json = request().body().asJson();
 
         if (json == null) {
             return badRequest("Invalid JSON data");
         }
 
-        String firstName = json.get("firstName").asText();
-        String lastName = json.get("lastName").asText();
-        String email = json.get("email").asText();
-        String password = json.get("password").asText();
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        try {
+            String firstName = json.get("firstName").asText();
+            String lastName = json.get("lastName").asText();
+            String email = json.get("email").asText();
+            String password = json.get("password").asText();
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        // Check if the user already exists
-        if (Ebean.find(User.class).where().eq("email", email).findRowCount() > 0) {
-            return badRequest("User already exists");
+            if (userService.isUserExist(email)){
+                return badRequest("User already exists");
+            }
+
+            User user = userService.createUser(firstName, lastName, email, hashedPassword);
+            String token = userService.generateToken(email);
+
+            ObjectNode response = Json.newObject();
+            response.put("message", "Sign up successful");
+            response.put("token", token);
+            response.set("user", createUserJson(user));
+
+            return ok(response);
+
+        } catch (Exception e) {
+            return internalServerError("Error occurred during sign up: " + e.getMessage());
         }
-
-        // Save user
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPassword(hashedPassword);
-        user.setCreatedAt(new Date());
-        user.setUpdatedAt(new Date());
-        user.save();
-
-        // Generate token
-        String token = generateToken(email);
-
-        // Create response
-        ObjectNode response = Json.newObject();
-        response.put("message", "Sign up successful");
-        response.put("token", token);
-        ObjectNode userJson = Json.newObject();
-        userJson.put("firstName", user.getFirstName());
-        userJson.put("lastName", user.getLastName());
-        userJson.put("email", user.getEmail());
-        userJson.put("createdAt", DATE_FORMAT.format(user.getCreatedAt()));
-        userJson.put("updatedAt", DATE_FORMAT.format(user.getUpdatedAt()));
-        response.set("user", userJson);
-
-        return ok(response);
     }
 
-    // Login method
+
+    @Inject
+    private Configuration configuration;
+
     public Result login() {
-        JsonNode json = request().body().asJson(); // Get JSON body
+        JsonNode json = request().body().asJson();
 
         if (json == null) {
             return badRequest("Invalid JSON data");
         }
 
-        String email = json.get("email").asText();
-        String password = json.get("password").asText();
+        try {
+            String email = json.get("email").asText();
+            String password = json.get("password").asText();
 
-        User user = Ebean.find(User.class).where().eq("email", email).findUnique();
+            User user = userService.authenticateUser(email, password);
 
-        if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
-            return unauthorized("Invalid email or password");
+            if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
+                return unauthorized("Invalid email or password");
+            }
+
+            List<Long> adminUserIds = configuration.getLongList("admin-user-list");
+            long userId = user.getId();
+
+            String role = adminUserIds.contains(userId) ? "admin" : "user";
+            String token = userService.generateToken(email);
+
+            ObjectNode response = Json.newObject();
+            response.put("message", "Login successful");
+            response.put("token", token);
+            response.put("role", role);
+            response.put("username", user.getFirstName() + " " + user.getLastName());
+            response.put("userId", userId);
+            response.set("user", createUserJson(user));
+            return ok(response);
+        } catch (Exception e) {
+            return internalServerError("Error occurred during login: " + e.getMessage());
         }
-
-        // Generate token
-        String token = generateToken(email);
-
-        // Create response
-        ObjectNode response = Json.newObject();
-        response.put("message", "Login successful");
-        response.put("token", token);
-        ObjectNode userJson = Json.newObject();
-        userJson.put("firstName", user.getFirstName());
-        userJson.put("lastName", user.getLastName());
-        userJson.put("email", user.getEmail());
-        userJson.put("createdAt", DATE_FORMAT.format(user.getCreatedAt()));
-        userJson.put("updatedAt", DATE_FORMAT.format(user.getUpdatedAt()));
-        response.set("user", userJson);
-
-        return ok(response);
     }
 
-    // Protected /home route
+
     public Result home() {
         String authHeader = request().getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return unauthorized("Authorization header is missing or invalid");
         }
+        try{
+            String token = authHeader.substring(7); // Extract token after "Bearer "
+            String email = userService.verifyToken(token);
 
-        String token = authHeader.substring(7); // Extract token after "Bearer "
-        String email = verifyToken(token);
+            if (email == null) {
+                return unauthorized("Invalid or expired token");
+            }
+            User user= userService.findUserByEmail(email) ;
+            if (user == null) {
+                return unauthorized("User not found");
+            }
 
-        if (email == null) {
-            return unauthorized("Invalid or expired token");
+            ObjectNode response = Json.newObject();
+            response.put("message", "Welcome to the home page");
+            response.set("user", createUserJson(user));
+
+            return ok(response);
+        }
+        catch (Exception e) {
+            return internalServerError("Error occurred while processing the request: " + e.getMessage());
         }
 
-        // Fetch user details
-        User user = Ebean.find(User.class).where().eq("email", email).findUnique();
+    }
 
-        if (user == null) {
-            return unauthorized("User not found");
-        }
-
-        // Create response
-        ObjectNode response = Json.newObject();
-        response.put("message", "Welcome to the home page");
+    private ObjectNode createUserJson(User user) {
         ObjectNode userJson = Json.newObject();
         userJson.put("firstName", user.getFirstName());
         userJson.put("lastName", user.getLastName());
         userJson.put("email", user.getEmail());
         userJson.put("createdAt", DATE_FORMAT.format(user.getCreatedAt()));
         userJson.put("updatedAt", DATE_FORMAT.format(user.getUpdatedAt()));
-        response.set("user", userJson);
-
-        return ok(response);
+        return userJson;
     }
 
     public Result testConnection() {
-        return ok("Connection successful");
+        return ok("Hii Shruti Mishra");
+    }
+
+    public Result listUsersNotAdmin() {
+        try{
+            List<User> users=userService.findAllUsers();
+            List<Long> adminUserIds = configuration.getLongList("admin-user-list");
+            List<User> nonAdminUsers = users.stream()
+                    .filter(user -> !adminUserIds.contains(user.getId()))
+                    .collect(Collectors.toList());
+            return ok(JsonUtil.toJson(nonAdminUsers));
+        }
+        catch (Exception e) {
+            return internalServerError("Error occurred during list users: " + e.getMessage());
+        }
+
     }
 }

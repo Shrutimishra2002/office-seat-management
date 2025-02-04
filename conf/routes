@@ -16,7 +16,35 @@
 #POST    /login        controllers.UserController.login(request: Http.Request)
 
 # UserController routes
-POST    /signup             controllers.UserController.signUp
-POST    /login              controllers.UserController.login
+POST    /users/signup         controllers.UserController.signUp
+POST    /users/login          controllers.UserController.login
 GET     /home               controllers.UserController.home
-GET     /testConnection     controllers.UserController.testConnection
+GET     /                    controllers.UserController.testConnection
+GET     /listUsersNotAdmin    controllers.UserController.listUsersNotAdmin
+
+# Seat Routes
+POST    /office/:officeId/seats/add         controllers.SeatController.addSeat(officeId: Long)
+PUT     /updateseats/:id                          controllers.SeatController.updateSeat(id: Long)
+DELETE  /seats/:id                          controllers.SeatController.deleteSeat(id: Long)
+GET     /office/:officeId/seats             controllers.SeatController.getSeats(officeId: Long)
+GET    /seatsfromoffice/:officeId                 controllers.SeatController.allSeatsFromaSingleOffice(officeId: Long)
+
+# Admin routes
+GET     /admin/seat-utilization            controllers.AdminController.getSeatUtilizationReport()
+POST    /admin/seats                       controllers.AdminController.addSeat()
+DELETE  /admin/seats/:id                   controllers.AdminController.removeSeat(id: Long)
+
+
+# Create a new office
+POST   /office/create               controllers.OfficeController.createOffice()
+DELETE /office/delete:id           controllers.OfficeController.deleteOffice(id: Long)
+
+GET    /offices/list            controllers.OfficeController.getOffices
+GET    /office/:id           controllers.OfficeController.getOfficeById(id: Long)
+
+
+# conf/routes
+POST    /assignSeatToUser/:userId/:seatId   controllers.UserSeatAssignmentController.assignSeatToUser(userId: Long, seatId: Long)
+DELETE  /removeSeatAssignment/:userId    controllers.UserSeatAssignmentController.removeSeatAssignment(userId: Long)
+GET     /getAssignedSeat/:userId            controllers.UserSeatAssignmentController.getSeatAssignment(userId: Long)
+GET     /checkUserExists/:userId            controllers.UserSeatAssignmentController.checkSeatAssignment(userId: Long)

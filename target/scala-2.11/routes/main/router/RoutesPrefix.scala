@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/shruti_sm1540_sc418/Downloads/Template/conf/routes
-// @DATE:Tue Jan 07 12:32:23 IST 2025
+// @SOURCE:/home/shruti_sm1540_sc418/Documents/OfficeSeatManagement/conf/routes
+// @DATE:Tue Feb 04 11:37:14 IST 2025
 
 
 package router {

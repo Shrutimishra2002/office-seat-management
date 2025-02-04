@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Backend" target="1.8" />
+      <module name="Office Seat Management" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Backend" options="-encoding utf8 -g" />
+      <module name="Office Seat Management" options="-encoding utf8 -g" />
       <module name="play-java-hello-world-tutorial" options="-encoding utf8 -g" />
     </option>
   </component>
