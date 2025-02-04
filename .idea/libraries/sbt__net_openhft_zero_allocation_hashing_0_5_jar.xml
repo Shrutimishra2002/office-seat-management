@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: net.openhft:zero-allocation-hashing:0.5:jar" external-system-id="SBT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.openhft/zero-allocation-hashing/jars/zero-allocation-hashing-0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.openhft/zero-allocation-hashing/srcs/zero-allocation-hashing-0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
